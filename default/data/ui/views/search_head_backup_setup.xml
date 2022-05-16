@@ -1,5 +1,6 @@
 <dashboard version="1.1">
   <label>Setup</label>
+  <description>Click each panel to edit its related configuration.</description>
   <row>
     <panel>
       <single>
@@ -28,6 +29,24 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <link target="_blank">/manager/search_head_backup/data/macros</link>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Backup Schedule Enabled</title>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/nobody/search_head_backup/configs/conf-savedsearches/Splunk%20Backup | table enableSched</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="rangeColors">["0xd41f1f","0x118832"]</option>
+        <option name="rangeValues">[0]</option>
+        <option name="useColors">1</option>
+        <drilldown>
+          <link target="_blank">/app/search_head_backup/reports</link>
         </drilldown>
       </single>
     </panel>
