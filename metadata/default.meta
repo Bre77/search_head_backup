@@ -24,5 +24,5 @@ export = app
 ### VIEWSTATES: even normal users should be able to create shared viewstates
 
 [viewstates]
-access = read : [ sc_admin, admin ], write: [*]
+access = read : [ sc_admin, admin ], write: [ sc_admin, admin]
 export = app
