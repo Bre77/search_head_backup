@@ -6,5 +6,4 @@ export = app
 [macros]
 export = app
 [viewstates]
-access = read : [ sc_admin, admin ], write: [ sc_admin, admin]
 export = app
