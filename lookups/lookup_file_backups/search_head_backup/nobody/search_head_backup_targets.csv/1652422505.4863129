@@ -1,0 +1,11 @@
+targets
+data/ui/views
+configs/conf-savedsearches
+configs/conf-props
+configs/conf-inputs
+configs/conf-transforms
+configs/conf-lookups
+configs/conf-macros
+configs/conf-datamodels
+configs/conf-eventtypes
+configs/conf-tags

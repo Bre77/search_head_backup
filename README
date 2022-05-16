@@ -1,0 +1,8 @@
+This app contains a saved search to backup Splunk Knowledge Objects from the local Search Head using the rest and collect commands.
+
+Its intended to be used by Splunk Cloud customers who want a record of their Knowledge Objects and Dashboards, and are unable to perform traditional filesystem based backups.
+
+Supported by Brett Adams, Member of the SplunkTrust since 2021.
+
+splunkbase@ba.id.au
+bretta@splunk.com

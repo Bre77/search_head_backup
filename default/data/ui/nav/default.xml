@@ -1,0 +1,4 @@
+<nav>
+  <view name="search_head_backup_home" default='true' />
+  <view name="search_head_backup_setup" />
+</nav>

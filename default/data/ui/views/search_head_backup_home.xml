@@ -1,0 +1,164 @@
+<form version="1.1">
+  <label>Search Head Backup</label>
+  <fieldset submitButton="false">
+    <input type="time" token="time">
+      <label>Time</label>
+      <default>
+        <earliest>-30d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="host">
+      <label>Host</label>
+      <fieldForLabel>host</fieldForLabel>
+      <fieldForValue>host</fieldForValue>
+      <search>
+        <query>| tstats count where index=`search_head_backup_index`  sourcetype=json_no_timestamp source="/servicesNS/*" by host</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">All</choice>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Knowledge Objects stored by Type</title>
+        <search>
+          <query>index=`search_head_backup_index` host=$host$ sourcetype=json_no_timestamp source="/servicesNS/*"
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$" 
+| timechart dc(id) by type span=1d limit=15</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Knowledge Objects stored by App</title>
+        <search>
+          <query>index=`search_head_backup_index` host=$host$ sourcetype=json_no_timestamp source="/servicesNS/*"
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$" 
+| timechart dc(id) by app span=1d limit=15</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Knowledge Objects changed by Type</title>
+        <search>
+          <query>index=`search_head_backup_index` host=$host$ sourcetype=json_no_timestamp source="/servicesNS/*"
+| where strptime(updated,"%Y-%m-%dT%H:%M:%S%z")&gt;(_time-84400)
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$"
+| timechart dc(id) by type span=1d limit=15</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Knowledge Objects changed by App</title>
+        <search>
+          <query>index=`search_head_backup_index` host=$host$ sourcetype=json_no_timestamp source="/servicesNS/*"
+| where strptime(updated,"%Y-%m-%dT%H:%M:%S%z")&gt;(_time-84400)
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$"
+| timechart dc(id) by app span=1d limit=15</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Knowledge Object Finder</title>
+      <input type="time" token="drilltime" searchWhenChanged="true">
+        <label>Time Range</label>
+        <default>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <input type="dropdown" token="type">
+        <label>Type</label>
+        <fieldForLabel>type</fieldForLabel>
+        <fieldForValue>type</fieldForValue>
+        <search>
+          <query>| metadata type=sources index=`search_head_backup_index` 
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$"
+| dedup type</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <choice value="*">All</choice>
+        <default>*</default>
+      </input>
+      <input type="dropdown" token="app">
+        <label>App</label>
+        <fieldForLabel>app</fieldForLabel>
+        <fieldForValue>app</fieldForValue>
+        <search>
+          <query>| metadata type=sources index=`search_head_backup_index` 
+| rex field=source "^\/servicesNS\/nobody\/(?&lt;app&gt;[^\/]+)\/.+?(?&lt;type&gt;\w+)$"
+| dedup app</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <choice value="*">All</choice>
+        <default>*</default>
+      </input>
+      <input type="dropdown" token="title">
+        <label>Title</label>
+        <choice value="*">All</choice>
+        <fieldForLabel>title</fieldForLabel>
+        <fieldForValue>title</fieldForValue>
+        <search>
+          <query>index=`search_head_backup_index` host::$host$ source::/servicesNS/nobody/$app$/*$type$ | top 0 title</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <default>*</default>
+      </input>
+      <event>
+        <title>KO Finder</title>
+        <search>
+          <query>index=`search_head_backup_index` host::$host$ source::/servicesNS/nobody/$app$/*$type$ title=$title$</query>
+          <earliest>$drilltime.earliest$</earliest>
+          <latest>$drilltime.latest$</latest>
+        </search>
+        <option name="list.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </event>
+    </panel>
+  </row>
+</form>

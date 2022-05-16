@@ -1,0 +1,51 @@
+<dashboard version="1.1">
+  <label>Setup</label>
+  <row>
+    <panel>
+      <single>
+        <title>Search Head Backup Index</title>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/nobody/search_head_backup/configs/conf-macros/search_head_backup_index | table definition</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/manager/search_head_backup/data/macros</link>
+        </drilldown>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Search Head Backup Host</title>
+        <search>
+          <query>| rest splunk_server=local /servicesNS/nobody/search_head_backup/configs/conf-macros/search_head_backup_host | table definition</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/manager/search_head_backup/data/macros</link>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>REST API Targets</title>
+        <search>
+          <query>| inputlookup search_head_backup_targets.csv</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/lookup_editor/lookup_edit?owner=nobody&amp;namespace=search_head_backup&amp;lookup=search_head_backup_targets.csv&amp;type=csv</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</dashboard>

@@ -1,0 +1,11 @@
+target,label
+data/ui/views,views
+configs/conf-savedsearches,saved searches
+configs/conf-props,props
+configs/conf-inputs,inputs
+configs/conf-transforms,
+configs/conf-lookups,
+configs/conf-macros,
+configs/conf-datamodels,
+configs/conf-eventtypes,
+configs/conf-tags,
