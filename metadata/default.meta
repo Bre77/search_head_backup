@@ -1,9 +1,12 @@
 
 []
 access = read : [ sc_admin, admin ], write : [ sc_admin, admin ]
+
 [lookups]
 export = app
+
 [macros]
 export = app
+
 [viewstates]
 export = app
