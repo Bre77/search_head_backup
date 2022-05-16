@@ -1,28 +1,10 @@
-# Application-level permissions
 
 []
 access = read : [ sc_admin, admin ], write : [ sc_admin, admin ]
-
-### PROPS
-
-[props]
-export = system
-
-
-### TRANSFORMS
-
-[transforms]
-export = system
-
-
-### LOOKUPS
-
 [lookups]
 export = app
-
-
-### VIEWSTATES: even normal users should be able to create shared viewstates
-
+[macros]
+export = app
 [viewstates]
 access = read : [ sc_admin, admin ], write: [ sc_admin, admin]
 export = app
