@@ -3,10 +3,10 @@
 access = read : [ sc_admin, admin ], write : [ sc_admin, admin ]
 
 [lookups]
-export = app
+export = none
 
 [macros]
-export = app
+export = none
 
 [viewstates]
-export = app
+export = none

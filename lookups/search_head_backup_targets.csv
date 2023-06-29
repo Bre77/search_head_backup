@@ -1,6 +1,6 @@
 target,label
 data/ui/views,views
-configs/conf-savedsearches,saved searches
+saved/searches,saved searches
 configs/conf-props,props
 configs/conf-inputs,inputs
 configs/conf-transforms,transforms
