@@ -1,6 +1,6 @@
 {
     "name": "search_head_backup",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "splunkbaseid": 6438,
     "license": "https://cdn.splunkbase.splunk.com/static/misc/eula.html"
 }
